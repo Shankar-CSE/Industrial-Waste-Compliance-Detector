@@ -23,7 +23,7 @@ A machine learning project to detect whether industrial facilities have the nece
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/your-username/Industrial-Waste-Compliance-Detector.git
+    git clone https://github.com/Shankar-CSE/Industrial-Waste-Compliance-Detector.git
     cd Industrial-Waste-Compliance-Detector
     ```
 
