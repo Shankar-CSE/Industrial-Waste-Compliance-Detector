@@ -14,7 +14,7 @@ import joblib
 
 
 # Load dataset
-df = pd.read_csv("waste_decomposition_dataset.csv")
+df = pd.read_csv("data/waste_decomposition_dataset.csv")
 
 # print(df.head())
 # print(df.info())
@@ -69,6 +69,8 @@ plt.title("Feature Importance in Waste Decomposition Prediction")
 # plt.show()
 
 print("plot created")
+import os
 
-joblib.dump(model, "waste_decomposition_model.pkl")
+os.makedirs('model', exist_ok=True)
+joblib.dump(model, "model/waste_decomposition_model.pkl")
 print("✅ Model saved as waste_decomposition_model.pkl")

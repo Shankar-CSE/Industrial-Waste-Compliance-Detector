@@ -100,9 +100,11 @@ columns = [
 ]
 
 df_with_target = pd.DataFrame(data, columns=columns)
+import os
 
+os.makedirs('data', exist_ok=True)
 # Save the dataframe with the target column
-df_with_target.to_csv("waste_decomposition_with_target.csv", index=False)
+df_with_target.to_csv("data/waste_decomposition_with_target.csv", index=False)
 print(f"✅ Dataset with target column created: waste_decomposition_with_target.csv with {num_records} records")
 print("Target column distribution:")
 print(df_with_target["Perfect_Waste_Decomposition_System"].value_counts())
@@ -110,5 +112,5 @@ print("-" * 30)
 
 # Create and save the dataframe without the target column
 df_without_target = df_with_target.drop(columns=["Perfect_Waste_Decomposition_System"])
-df_without_target.to_csv("waste_decomposition_without_target.csv", index=False)
+df_without_target.to_csv("data/waste_decomposition_without_target.csv", index=False)
 print(f"✅ Dataset without target column created: waste_decomposition_without_target.csv with {num_records} records")

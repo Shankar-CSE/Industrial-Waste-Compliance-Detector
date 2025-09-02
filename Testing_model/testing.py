@@ -4,10 +4,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 
 # 1. Load trained model
-model = joblib.load("../Training_model/waste_decomposition_model.pkl")
+model = joblib.load("model/waste_decomposition_model.pkl")
 
 # 2. Load test dataset (without target column)
-df_test = pd.read_csv("waste_decomposition_without_target.csv")
+df_test = pd.read_csv("data/waste_decomposition_without_target.csv")
 
 # Keep original for saving later
 df_original = df_test.copy()
@@ -16,7 +16,7 @@ df_original = df_test.copy()
 # If you generated the dataset with label column originally, 
 # but removed it for testing, keep that file separately as ground truth
 try:
-    y_true = pd.read_csv("waste_decomposition_with_target.csv")["Perfect_Waste_Decomposition_System"]
+    y_true = pd.read_csv("data/waste_decomposition_with_target.csv")["Perfect_Waste_Decomposition_System"]
 except:
     y_true = None  # If you don’t have labels, accuracy can’t be computed
 
@@ -34,9 +34,9 @@ y_pred = model.predict(X_test)
 
 # 5. Save predictions to CSV
 df_original["Predicted_Perfect_Waste_Decomposition_System"] = y_pred
-df_original.to_csv("test_predictions.csv", index=False)
+df_original.to_csv("data/output.csv", index=False)
 
-print("✅ Predictions saved to test_predictions.csv")
+print("✅ Predictions saved to output.csv")
 
 # 6. Accuracy if ground truth exists
 if y_true is not None:
