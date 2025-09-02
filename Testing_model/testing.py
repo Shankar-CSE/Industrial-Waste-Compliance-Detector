@@ -32,6 +32,10 @@ for col in categorical_cols:
 # 4. Predict
 y_pred = model.predict(X_test)
 
+import os
+
+os.makedirs('data', exist_ok=True)
+
 # 5. Save predictions to CSV
 df_original["Predicted_Perfect_Waste_Decomposition_System"] = y_pred
 df_original.to_csv("data/output.csv", index=False)
@@ -41,6 +45,6 @@ print("✅ Predictions saved to output.csv")
 # 6. Accuracy if ground truth exists
 if y_true is not None:
     acc = accuracy_score(y_true, y_pred)
-    print("🎯 Testing Accuracy:", round(acc * 100, 2), "%")
+    print("\n🎯 Testing Accuracy:", round(acc * 100, 2), "%")
 else:
     print("⚠️ No ground truth labels available → accuracy cannot be calculated.")

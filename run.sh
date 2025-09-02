@@ -1,44 +1,44 @@
-echo "welcome"
+echo -e "welcome \n"
 
 chmod +x run.sh
 
 if [ -d "venv" ]; then
-    echo "venv exists"
+    echo -e "venv exists\n"
 else
-    echo "venv does not exist"
+    echo -e "venv does not exist \n"
     python -m venv venv
-    echo "Activating virtual environment..."
+    echo -e "Activating virtual environment...\n"
     source venv/Scripts/activate
-    echo "Installing requirements..."
+    echo -e "Installing requirements...\n"
     pip install -r requirements.txt
 fi
 
 
 if [ ! -f "data/raw_data.csv" ]; then
-    echo "⚡ Training dataset not found. Creating..."
+    echo -e "⚡ Training Dataset not found. Creating...\n"
     python datasetMaker/training_dataset_maker.py
 
 
 else
-    echo "✅ Training dataset already exists."
+    echo -e "✅ Training dataset already exists.\n"
 fi
 
-if [ ! -f "data/preprocessed_data.csv" ]; then
-    echo "⚡ Preprocessed dataset not found. Creating..."
+if [ ! -f "data/processed_data.csv" ]; then
+    echo -e "⚡  Preprocessing the dataset...\n"
     python datasetMaker/preprocessing.py
 
 
 else
-    echo "✅  preprocessed dataset already exists."
+    echo -e "✅  preprocessed dataset already exists.\n"
 fi
 
 if [ ! -f "model/waste_decomposition_model.pkl" ]; then
-    echo "⚡ Model not found. Creating..."
+    echo -e "⚡ Model not found. Training...\n"
     python Training_model/training.py
 
 
 else
-    echo "✅ Model already exists."
+    echo -e "✅ Model already exists.\n"
 fi
 
 
@@ -46,13 +46,13 @@ fi
 
 # Check and run training dataset maker
 if [ ! -f "data/waste_decomposition_with_target.csv" ] || [ ! -f "data/waste_decomposition_without_target.csv" ]; then
-    echo "⚡ Testing dataset not found. Creating..."
+    echo -e "⚡ Testing dataset not found. Creating...\n"
     python datasetMaker/testing_dataset_maker.py
 else
-    echo "✅ Testing dataset already exists."
+    echo -e "✅ Testing dataset already exists.\n"
 fi
 
 
 
-echo "🧪 Starting Testing..."
+echo -e "🧪 Starting Testing...\n"
 python Testing_model/testing.py
