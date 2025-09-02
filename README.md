@@ -18,6 +18,8 @@ A machine learning project to detect whether industrial facilities have the nece
 
 - Python 3.9 or higher
 - `pip` package manager
+- `bash` shell
+
 
 ### Installation
 
@@ -27,50 +29,56 @@ A machine learning project to detect whether industrial facilities have the nece
     cd Industrial-Waste-Compliance-Detector
     ```
 
-2.  **Create and activate a virtual environment:**
-    ```sh
-    # For Windows
-    python -m venv .venv
-    .venv\Scripts\activate
-
-    # For macOS/Linux
-    python3 -m venv .venv
-    source .venv/bin/activate
+2.  **Running**
+    Open bash shell and move to the diretory 
+    then run this:
+    ```
+    bash run.sh
+    ```
+    or
+    ```
+    ./run.sh
     ```
 
-3.  **Install the required dependencies:**
-    *(Note: A `requirements.txt` file should be created for this)*
-    ```sh
-    pip install -r requirements.txt
-    ```
 
-## 🏃 Usage
+   
+
+## 🏃 manual testing 
+
+create venv and install requirements
+```sh
+python -m venv venv
+venv/Scripts/activate
+pip install -r requirements.txt
+```
 
 To Create training Dataset  
 
 ```sh
-cd Training_model
 python training_dataset_maker.py
 ```
 
+For preprocess the data
+```sh
+python preprocess.py
+```
 To  train The Model  
 
 ```sh
-jupyter notebook training.ipynb
+python training.py
 ```
 or directly run the training.ipynb file
 
 To Create training Dataset  
 
 ```sh
-cd Testing_model
 python testing_dataset_maker.py
 ```
 
 To Test The Model  
 
 ```sh
-jupyter notebook testing.ipynb
+python testing.py
 ```
 or directly run the testing.ipynb file
 
