@@ -14,23 +14,42 @@ else
 fi
 
 
-if [ ! -f "data/waste_decomposition_dataset.csv" ]; then
-    echo "⚡ Testing dataset not found. Creating..."
-    python datasetMaker/testing_dataset_maker.py
+if [ ! -f "data/raw_data.csv" ]; then
+    echo "⚡ Training dataset not found. Creating..."
+    python datasetMaker/training_dataset_maker.py
 
-    echo "🚀 Starting Training..."
-    python Training_model/training.py
 
 else
-    echo "✅ Testing dataset already exists."
+    echo "✅ Training dataset already exists."
 fi
+
+if [ ! -f "data/preprocessed_data.csv" ]; then
+    echo "⚡ Preprocessed dataset not found. Creating..."
+    python datasetMaker/preprocessing.py
+
+
+else
+    echo "✅  preprocessed dataset already exists."
+fi
+
+if [ ! -f "model/waste_decomposition_model.pkl" ]; then
+    echo "⚡ Model not found. Creating..."
+    python Training_model/training.py
+
+
+else
+    echo "✅ Model already exists."
+fi
+
+
+
 
 # Check and run training dataset maker
 if [ ! -f "data/waste_decomposition_with_target.csv" ] || [ ! -f "data/waste_decomposition_without_target.csv" ]; then
-    echo "⚡ Training dataset not found. Creating..."
-    python datasetMaker/training_dataset_maker.py
+    echo "⚡ Testing dataset not found. Creating..."
+    python datasetMaker/testing_dataset_maker.py
 else
-    echo "✅ Training dataset already exists."
+    echo "✅ Testing dataset already exists."
 fi
 
 

@@ -102,11 +102,14 @@ df = pd.DataFrame(data, columns=[
 
 df = df.sample(frac=1).reset_index(drop=True)
 
+# print(df.isnull().sum())
+# print(df.dtypes)
+
 # Save
 import os
 
 os.makedirs('data', exist_ok=True)
-df.to_csv("data/waste_decomposition_dataset.csv", index=False)
+df.to_csv("data/raw_data.csv", index=False)
 
 print(df["Perfect_Waste_Decomposition_System"].value_counts())
 print("✅ Best dataset created with realistic balance and correlations")

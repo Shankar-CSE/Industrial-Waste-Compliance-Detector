@@ -14,7 +14,7 @@ import joblib
 
 
 # Load dataset
-df = pd.read_csv("data/waste_decomposition_dataset.csv")
+df = pd.read_csv("data/processed_data.csv")
 
 # print(df.head())
 # print(df.info())
