@@ -1,15 +1,21 @@
 import pandas as pd
 import random
 import numpy as np
+import os
+
 
 # Number of records
 num_records = 200
 half = num_records // 2  # 100 positive, 100 negative
 
+
+
 industry_types = ["Manufacturing", "Food", "Textile", "IT", "Pharma", "Construction", "Automobile"]
 company_sizes = ["Small", "Medium", "Large"]
 locations = ["Urban", "Rural", "Semi-Urban"]
 decomposition_methods = ["Composting", "Anaerobic Digestion", "Incineration", "Recycling", "Landfill", "Mixed"]
+
+
 
 def generate_company(i, perfect=0):
     company_id = f"T{i:04d}"
@@ -77,6 +83,8 @@ def generate_company(i, perfect=0):
         sustainability_report, perfect
     ]
 
+
+
 # Generate data
 data = []
 for i in range(half):
@@ -84,8 +92,12 @@ for i in range(half):
 for i in range(half, num_records):
     data.append(generate_company(i, perfect=0))  # 100 negatives
 
+
+
 # Shuffle so it's not ordered
 random.shuffle(data)
+
+
 
 columns = [
     "Company_ID", "Industry_Type", "Company_Size", "Location_Region",
@@ -99,8 +111,13 @@ columns = [
     "Perfect_Waste_Decomposition_System"
 ]
 
+
+
+
 df_with_target = pd.DataFrame(data, columns=columns)
-import os
+
+
+
 
 os.makedirs('data', exist_ok=True)
 # Save the dataframe with the target column
@@ -109,6 +126,11 @@ print(f"✅ Dataset with target column created: waste_decomposition_with_target.
 print("Target column distribution:")
 print(df_with_target["Perfect_Waste_Decomposition_System"].value_counts())
 print("-" * 30)
+
+
+
+
+
 
 # Create and save the dataframe without the target column
 df_without_target = df_with_target.drop(columns=["Perfect_Waste_Decomposition_System"])
