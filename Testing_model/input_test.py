@@ -2,9 +2,11 @@ import pandas as pd
 import joblib
 from sklearn.preprocessing import LabelEncoder
 
+print("Load trained model...")
+
 model = joblib.load("model/waste_decomposition_model.pkl")
 
-
+print("Enter the following details to get prediction:")
 
 
 company_id = input("Enter Company ID: ")
