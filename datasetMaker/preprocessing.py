@@ -1,46 +1,120 @@
+# data_preprocessing.py
+
 import pandas as pd
-import os
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.decomposition import PCA
 
-# Load raw dataset
-input_path = "data/raw_data.csv"
-df = pd.read_csv(input_path)
+# ===============================
+# STEP 1: Load the dataset
+# ===============================
+df = pd.read_csv("../data/raw_data.csv")
 
-# Step 1: Map Yes/No to 1/0 for binary columns
-binary_columns = [
-    "Hazardous_Waste_Treatment_Compliance", "Waste_to_Energy_Usage",
-    "ISO_14001_Certified", "Zero_Waste_Landfill_Certified",
-    "Employee_Training_in_Waste_Management", "Digital_Waste_Tracking",
-    "CSR_Initiatives_on_Waste", "Public_Sustainability_Reports"
-]
+print("\n🔹 STEP 1: Dataset Loaded")
+print("Shape:", df.shape)
+print(df.head(5))  # show first 5 rows
 
-for col in binary_columns:
-    df[col] = df[col].map({"Yes": 1, "No": 0})
+# ===============================
+# STEP 2: Handle Missing Values
+# ===============================
+print("\n🔹 STEP 2: Checking Missing Values")
+print(df.isnull().sum())
 
-# Step 2: Label Encode Categorical Columns
-categorical_cols = [
-    "Industry_Type", "Company_Size", "Location_Region",
-    "Decomposition_Technique", "Govt_Compliance_Status"
-]
+# Visualize missing values
+plt.figure(figsize=(10, 4))
+sns.heatmap(df.isnull(), cbar=False, cmap="viridis")
+plt.title("Missing Values Heatmap")
+plt.show()
 
-label_encoders = {}
-for col in categorical_cols:
-    le = LabelEncoder()
-    df[col] = le.fit_transform(df[col])
-    label_encoders[col] = le  # Save encoder if needed later
+# Fill missing values
+num_cols = df.select_dtypes(include=[np.number]).columns
+df[num_cols] = df[num_cols].fillna(df[num_cols].mean())
 
-# Step 3: Scale Numeric Features (excluding target and already encoded columns)
-target_col = "Perfect_Waste_Decomposition_System"
+cat_cols = df.select_dtypes(include=["object"]).columns
+for col in cat_cols:
+    df[col] = df[col].fillna(df[col].mode()[0])
 
-# Exclude non-numeric or already encoded/binary columns
-exclude_cols = [target_col, "Company_ID"] + binary_columns + categorical_cols
-numeric_cols = [col for col in df.columns if col not in exclude_cols and df[col].dtype in ['int64', 'float64']]
+print("✅ Missing values handled")
+print("Shape after filling NAs:", df.shape)
 
+# ===============================
+# STEP 3: Encode Categorical Columns
+# ===============================
+print("\n🔹 STEP 3: Encoding Categorical Columns")
 
+encoder = LabelEncoder()
+for col in cat_cols:
+    df[col] = encoder.fit_transform(df[col])
 
-# Step 4: Save processed dataset
-os.makedirs("data", exist_ok=True)
-output_path = "data/processed_data.csv"
-df.to_csv(output_path, index=False)
+print("✅ Categorical columns encoded")
+print("Shape after encoding:", df.shape)
 
-print("✅ Processed dataset saved to:", output_path)
+# ===============================
+# STEP 4: Scale Numerical Features
+# ===============================
+print("\n🔹 STEP 4: Scaling Numerical Features")
+
+scaler = StandardScaler()
+df[num_cols] = scaler.fit_transform(df[num_cols])
+
+print("✅ Numerical features scaled")
+print("Shape after scaling:", df.shape)
+
+# Show histogram after scaling
+df[num_cols].hist(bins=30, figsize=(12, 8))
+plt.suptitle("Distribution of Numerical Features After Scaling")
+plt.show()
+
+# ===============================
+# STEP 5: Apply PCA for Redundancy Reduction
+# ===============================
+print("\n🔹 STEP 5: Applying PCA for Dimensionality Reduction")
+
+pca = PCA(n_components=0.95)  # keep 95% variance
+pca_features = pca.fit_transform(df[num_cols])
+
+# Variance explained plot
+plt.figure(figsize=(8, 5))
+plt.plot(np.cumsum(pca.explained_variance_ratio_), marker="o")
+plt.xlabel("Number of Components")
+plt.ylabel("Cumulative Explained Variance")
+plt.title("PCA Explained Variance")
+plt.grid()
+plt.show()
+
+# Replace numerical columns with PCA features
+pca_cols = [f"PCA_{i+1}" for i in range(pca_features.shape[1])]
+df_pca = pd.DataFrame(pca_features, columns=pca_cols)
+
+df = df.drop(columns=num_cols).reset_index(drop=True)
+df = pd.concat([df, df_pca], axis=1)
+
+print("✅ PCA applied")
+print("Shape after PCA:", df.shape)
+print(df.head(5))
+
+# ===============================
+# STEP 6: Save Preprocessed Dataset
+# ===============================
+df.to_csv("../data/preprocessed_dataset.csv", index=False)
+print("\n💾 Preprocessed dataset saved as 'preprocessed_dataset.csv'")
+
+# ===============================
+# STEP 7: Train-Test Split
+# ===============================
+print("\n🔹 STEP 7: Splitting into Train/Test Sets")
+
+# Assuming last column is target (adjust as per your dataset)
+x = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=42
+)
+
+print("✅ Data split complete")
+print("Train set shape:", X_train.shape, y_train.shape)
+print("Test set shape:", X_test.shape, y_test.shape)
