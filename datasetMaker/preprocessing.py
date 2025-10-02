@@ -99,8 +99,8 @@ print(df.head(5))
 # ===============================
 # STEP 6: Save Preprocessed Dataset
 # ===============================
-df.to_csv("../data/preprocessed_dataset.csv", index=False)
-print("\n💾 Preprocessed dataset saved as 'preprocessed_dataset.csv'")
+df.to_csv("../data/preprocessed_data.csv", index=False)
+print("\n💾 Preprocessed dataset saved as 'preprocessed_data.csv'")
 
 # ===============================
 # STEP 7: Train-Test Split
