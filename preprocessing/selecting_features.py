@@ -20,7 +20,8 @@ selected_columns = [
     "Employee_Training_in_Waste_Management",
     "Digital_Waste_Tracking",
     "Frequency_of_Waste_Audit_per_year",
-    "Eco_Friendly_Raw_Materials_%"
+    "Eco_Friendly_Raw_Materials_%",
+    "Perfect_Waste_Decomposition_System"
 ]
 
 # Step 3: Keep only those columns
