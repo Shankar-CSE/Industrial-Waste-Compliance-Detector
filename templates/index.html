@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Compliance Prediction</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .input-group {
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            grid-column: 1 / -1;
+            padding: 0.9rem;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .prediction-result {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Waste System Compliance Prediction</h1>
+        
+        <form action="/predict" method="post">
+            
+            <div class="input-group">
+                <label for="f1">Waste Segregation Level %</label>
+                <input id="f1" type="number" name="Waste_Segregation_Level_%" value="69.43820015" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f2">Decomposition Efficiency %</label>
+                <input id="f2" type="number" name="Decomposition_Efficiency_%" value="87.24545976" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f3">Recycling Rate %</label>
+                <input id="f3" type="number" name="Recycling_Rate_%" value="82.11634855" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f4">Hazardous Waste Compliance</label>
+                <input id="f4" type="number" name="Hazardous_Waste_Treatment_Compliance" value="1" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f5">Govt Compliance Status</label>
+                <input id="f5" type="number" name="Govt_Compliance_Status" value="0" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f6">ISO 14001 Certified</label>
+                <input id="f6" type="number" name="ISO_14001_Certified" value="1" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f7">Zero Waste Landfill Certified</label>
+                <input id="f7" type="number" name="Zero_Waste_Landfill_Certified" value="1" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f8">Waste to Energy Usage</label>
+                <input id="f8" type="number" name="Waste_to_Energy_Usage" value="1" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f9">CO2 Emissions (tons/year)</label>
+                <input id="f9" type="number" name="CO2_Emissions_tons_per_year" value="87.71415367" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f10">Methane Emissions (tons/year)</label>
+                <input id="f10" type="number" name="Methane_Emissions_tons_per_year" value="29.31978918" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f11">Environmental Fines Count</label>
+                <input id="f11" type="number" name="Environmental_Fines_Count" value="0" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f12">Employee Training</label>
+                <input id="f12" type="number" name="Employee_Training_in_Waste_Management" value="1" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f13">Digital Waste Tracking</label>
+                <input id="f13" type="number" name="Digital_Waste_Tracking" value="1" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f14">Waste Audits per Year</label>
+                <input id="f14" type="number" name="Frequency_of_Waste_Audit_per_year" value="10.70957831" step="any" required>
+            </div>
+
+            <div class="input-group">
+                <label for="f15">Eco-Friendly Raw Materials %</label>
+                <input id="f15" type="number" name="Eco_Friendly_Raw_Materials_%" value="90.03812255" step="any" required>
+            </div>
+            
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <h2 class="prediction-result">{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+
+</body>
+</html>
