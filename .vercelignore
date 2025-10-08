@@ -1,0 +1,58 @@
+# Virtual environments
+venv/
+env/
+.venv/
+.Python
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Development files
+data/
+preprocessing/
+Training_model/
+*.ipynb
+*.csv
+run.sh
+README.md
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Testing and coverage
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+.hypothesis/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+
+# Environment files
+.env
+.env.local
+.env.production
