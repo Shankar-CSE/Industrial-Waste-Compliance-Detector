@@ -13,6 +13,9 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+# Create models directory if it doesn't exist
+os.makedirs("./models", exist_ok=True)
+
 # -------------------------
 # Load dataset
 # -------------------------
@@ -36,7 +39,6 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # Save the scaler
-os.makedirs("../models", exist_ok=True)
 joblib.dump(scaler, "./models/scaler.pkl")
 
 # -------------------------
