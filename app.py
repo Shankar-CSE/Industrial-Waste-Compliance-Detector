@@ -1,7 +1,35 @@
 from flask import Flask, request, render_template
 import numpy as np
 import joblib
-from database import save_prediction   # ✅ import MongoDB helper
+from pymongo import MongoClient
+from datetime import datetime
+import os
+
+# MongoDB connection string (use env variable for deployment safety)
+MONGO_URI = "mongodb+srv://user:user@cluster0.8f5vc9l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# Initialize MongoDB client
+client = MongoClient(MONGO_URI)
+db = client["waste_compliance_db"]        # Database name
+predictions_collection = db["predictions"]  # Collection name
+
+def save_prediction(input_features, prediction, confidence, model_name):
+    """
+    Save a prediction record to MongoDB Atlas.
+    """
+    record = {
+        "timestamp": datetime.utcnow(),
+        "input_features": input_features,
+        "prediction": prediction,
+        "confidence": confidence,
+        "model_name": model_name
+    }
+    try:
+        result = predictions_collection.insert_one(record)
+        return result.inserted_id
+    except Exception as e:
+        print(f"⚠️ Failed to save to MongoDB: {e}")
+        return None
+
 
 app = Flask(__name__)
 
@@ -12,6 +40,23 @@ scaler = joblib.load('./models/scaler.pkl')
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/history')
+def history():
+    try:
+
+        # MongoDB connection string (use env variable for deployment safety)
+       
+
+        # Fetch all prediction records from MongoDB (sorted by timestamp descending)
+        records = list(predictions_collection.find().sort("timestamp", -1))
+        # Convert datetime objects to string for easier display
+        for r in records:
+            r['timestamp'] = r['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+        return render_template('history.html', records=records)
+    except Exception as e:
+        return f"⚠️ Error fetching history: {str(e)}"
+
 
 @app.route('/predict', methods=['POST'])
 def predict():

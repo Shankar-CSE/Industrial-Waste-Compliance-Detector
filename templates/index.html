@@ -139,6 +139,29 @@
             border: 1px solid #ddd;
             color: #444;
         }
+
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -250,6 +273,7 @@
         </div>
         {% endif %}
     </div>
+  <button class="back-btn" onclick="window.location.href='/history'">📝</button>
 
 </body>
 </html>
