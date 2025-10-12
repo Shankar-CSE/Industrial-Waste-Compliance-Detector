@@ -3,18 +3,18 @@
 # ===========================
 from pymongo import MongoClient
 from datetime import datetime
+import os
 
-# Replace this with your actual MongoDB connection string
-MONGO_URI = "mongodb://localhost:27017/"
-
+# MongoDB connection string (use env variable for deployment safety)
+MONGO_URI = "mongodb+srv://user:user@cluster0.8f5vc9l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 # Initialize MongoDB client
 client = MongoClient(MONGO_URI)
-db = client["waste_compliance_db"]  # Database name
-collection = db["predictions"]      # Collection name
+db = client["waste_compliance_db"]        # Database name
+predictions_collection = db["predictions"]  # Collection name
 
 def save_prediction(input_features, prediction, confidence, model_name):
     """
-    Save prediction details to MongoDB Atlas.
+    Save a prediction record to MongoDB Atlas.
     """
     record = {
         "timestamp": datetime.utcnow(),
@@ -23,6 +23,9 @@ def save_prediction(input_features, prediction, confidence, model_name):
         "confidence": confidence,
         "model_name": model_name
     }
-
-    result = collection.insert_one(record)
-    return result.inserted_id
+    try:
+        result = predictions_collection.insert_one(record)
+        return result.inserted_id
+    except Exception as e:
+        print(f"⚠️ Failed to save to MongoDB: {e}")
+        return None
