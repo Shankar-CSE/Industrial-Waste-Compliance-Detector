@@ -18,7 +18,6 @@ A machine learning project to detect whether industrial facilities have the nece
 
 - Python 3.9 or higher
 - `pip` package manager
-- `bash` shell
 
 
 ### Installation
@@ -33,57 +32,31 @@ A machine learning project to detect whether industrial facilities have the nece
     Open bash shell and move to the diretory 
     then run this:
     ```
-    bash run.sh
+    ./run.bat
     ```
-    or
-    ```
-    ./run.sh
-    ```
+## open site in http://127.0.0.1:5000/
 
 
+
+
+## 📂 Project Structure
+```
+Industrial-Waste-Compliance-Detector/
+├── data/                   # Directory for datasets
+├── models/                 # Directory for trained models
+├── preprocessing           
+│   └── preprocessing.py       # Data preprocessing scripts    
+├── training/
+│   └── train.py            # Model training scripts
+├── templates/
+│   └── index.html            # home page
+│   └── history.html            # Retrive logs from database
+├──app.py
+├── requirements.txt        # Project dependencies
+├── README.md               # Project documentation
    
-
-## 🏃 manual testing 
-
-create venv and install requirements
-```sh
-python -m venv venv
-venv/Scripts/activate
-pip install -r requirements.txt
 ```
 
-To Create training Dataset  
-
-```sh
-python training_dataset_maker.py
-```
-
-For preprocess the data
-```sh
-python preprocess.py
-```
-To  train The Model  
-
-```sh
-python training.py
-```
-or directly run the training.ipynb file
-
-To Create training Dataset  
-
-```sh
-python testing_dataset_maker.py
-```
-
-To Test The Model  
-
-```sh
-python testing.py
-```
-or directly run the testing.ipynb file
-
-
-*(Please update current directory to the root directory.)*
 
 ## 🤝 Contributing
 
