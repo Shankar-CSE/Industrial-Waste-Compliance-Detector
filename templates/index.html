@@ -261,19 +261,24 @@
             {% endif %}
 
             {% if model_name %}
-                <p class="model-info">🧠 Model Used: <strong>{{ model_name }}</strong></p>
+                <p class="model-info">Model Used: <strong>{{ model_name }}</strong></p>
             {% endif %}
 
             {% if input_features %}
                 <div class="input-summary">
-                    <h3>📊 Input Summary:</h3>
+                    <h3>Input Summary:</h3>
                     <pre>{{ input_features }}</pre>
                 </div>
             {% endif %}
         </div>
         {% endif %}
     </div>
-  <button class="back-btn" onclick="window.location.href='/history'">📝</button>
+  <button class="back-btn" onclick="window.location.href='/history'">
+    <img src="https://img.icons8.com/?size=100&id=112381&format=png&color=000000"
+    width="40px"
+    height="40px"
+    alt="">
+  </button>
 
 </body>
 </html>
