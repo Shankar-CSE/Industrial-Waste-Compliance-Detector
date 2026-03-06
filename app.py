@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 # MongoDB connection string (use env variable for deployment safety)
-MONGO_URI = "mongodb+srv://user:user@cluster0.8f5vc9l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI = "mongodb+srv://yugenjr847:yugen842007@yugen.zbssgmq.mongodb.net/IWCD?retryWrites=true&w=majority&appName=Cluster0"
 # Initialize MongoDB client
 client = MongoClient(MONGO_URI)
 db = client["waste_compliance_db"]        # Database name
