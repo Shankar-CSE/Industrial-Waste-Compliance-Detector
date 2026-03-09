@@ -7,12 +7,12 @@ A machine learning project to detect whether industrial facilities have the nece
 
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Python
 - (Potentially) Scikit-learn for data analysis
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -56,6 +56,8 @@ Industrial-Waste-Compliance-Detector/
 ├── README.md               # Project documentation
    
 ```
+
+
 
 
 ## 🤝 Contributing
